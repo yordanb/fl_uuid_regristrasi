@@ -46,7 +46,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
     if (savedUUID == null) {
       // Generate unique code
-      var uuid = Uuid();
+      var uuid = const Uuid();
       String uniqueCode = uuid.v4();
 
       // Save unique code locally
