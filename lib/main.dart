@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -5,19 +6,23 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: RegistrationForm(),
     );
   }
 }
 
 class RegistrationForm extends StatefulWidget {
+  const RegistrationForm({super.key});
+
   @override
   _RegistrationFormState createState() => _RegistrationFormState();
 }
@@ -53,7 +58,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
       });
 
       // Display the generated UUID in the terminal
-      print('Generated UUID: $uniqueCode');
+      if (kDebugMode) {
+        print('Generated UUID: $uniqueCode');
+      }
     } else {
       // Set _deviceID to the saved UUID
       setState(() {
@@ -61,7 +68,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
       });
 
       // Display the saved UUID in the terminal
-      print('Retrieved UUID: $savedUUID');
+      if (kDebugMode) {
+        print('Retrieved UUID: $savedUUID');
+      }
     }
   }
 
@@ -93,7 +102,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
         if (response.statusCode == 200) {
           // If the server returns a 200 OK response, show success message
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Registration successful!')),
+            const SnackBar(content: Text('Registration successful!')),
           );
         } else {
           // If the server did not return a 200 OK response, show error message
